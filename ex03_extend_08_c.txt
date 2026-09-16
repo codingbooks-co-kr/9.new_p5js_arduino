@@ -1,0 +1,13 @@
+// var, let을 사용한 재할당 → 가능
+
+function setup() {
+  var name1 = 'javascript';
+  print(name1);
+  name1 = 'p5.js';	// 재할당 정상!
+  print(name1);
+
+  let name2 = 'javascript';
+  print(name2);
+  name2 = 'p5.js';	// 재할당 정상!
+  print(name2);
+}

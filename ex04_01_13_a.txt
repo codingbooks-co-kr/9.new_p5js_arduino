@@ -1,0 +1,21 @@
+// 세 개의 문자(a, b, c) 입력 및 출력1
+
+function setup() {
+  createCanvas(300, 300);
+  textSize(100);
+  textAlign(CENTER);
+}
+
+function draw() {
+  background(0);
+  fill(255);
+  if (key === 'a') {
+    text('a', width/2, height/2);
+  } else if (key === 'b') {
+    text('b', width/2, height/2);
+  } else if (key === 'c') {
+    text('c', width/2, height/2);
+  } else {
+    text('None', width/2, height/2);
+  }
+}

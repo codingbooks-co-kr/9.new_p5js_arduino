@@ -1,0 +1,7 @@
+// 첫 코딩
+
+function setup() {
+  createCanvas(300, 300);
+  background(0);
+  ellipse(150, 150, 200, 200);
+}

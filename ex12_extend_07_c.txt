@@ -1,0 +1,11 @@
+// 랜덤 위치에 랜덤 색상으로 원이 생성
+
+function setup() {
+  createCanvas(300, 300);
+  background(0);
+}
+
+function draw() {
+  fill(random(255), random(255), random(255), 200);
+  ellipse(random(width), random(height), 30, 30);
+}

@@ -1,0 +1,15 @@
+// nf()를 사용한 숫자 자리수 맞추기
+
+function setup() {
+  let a = 12;
+  let sa = nf(a, 3);
+  let sb = nf(a, 5);
+  print(sa);
+  print(sb);
+
+  let b = 10.5;
+  let sc = nf(b, 0, 2);
+  let sd = nf(b, 4, 2);
+  print(sc);
+  print(sd);
+}

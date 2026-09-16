@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <!-- html 소스 코드 추가 -->
+    <h1>랜덤하게 원을 생성</h1>
+    <h3>Coding Artist</h3>
+    <p><a href="https://p5js.org/reference/">p5.js 레퍼런스</a></p>
+    <script src="sketch.js"></script>
+  </body>
+</html>

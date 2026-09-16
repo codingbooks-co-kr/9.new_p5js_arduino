@@ -1,0 +1,49 @@
+// p5.js: 인터럽트 방식
+// 가변저항값 수신
+
+let port = new p5.WebSerial();
+let value = 0;
+
+function setup( ) {
+  createCanvas(500, 200);
+  port.getPorts();
+  port.on('noport', makePortButton);
+  port.on('portavailable', openPort);
+  port.on('data', serialEvent);
+}
+
+function draw() {
+  background(0);
+  fill(255, 255, 0);
+  textAlign(CENTER, CENTER);
+  textSize(30);
+  text('가변저항값: ' + nf(value, 3), width/2, height/2);
+}
+
+// 수신값이 있으면 자동 호출
+function serialEvent() {
+  value = port.read();	// 수신
+  port.write('B');	// 송신
+}
+
+// 마우스를 누르면 송·수신 시작
+function mousePressed() {
+  console.log("시리얼 통신 시작!");
+  port.clear();		// 버퍼 삭제
+  port.write('A');	// 첫 송신
+}
+
+function makePortButton() {
+  let portButton = createButton('포트선택');
+  portButton.mousePressed(choosePort);
+  function choosePort() {
+    port.requestPort();
+  }
+}
+
+function openPort() {
+  port.open().then(initiateSerial);
+  function initiateSerial() {
+    console.log('포트 오픈');
+  }
+}

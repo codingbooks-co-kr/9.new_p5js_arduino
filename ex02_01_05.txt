@@ -1,0 +1,22 @@
+// 배경색 및 원의 외곽선 색상을 바꾸기
+
+function setup() {
+  createCanvas(600, 200);
+  background(200);	// 캔버스의 배경색으로 무채색 밝기값 200으로 설정
+  strokeWeight(5);	// 원의 외곽선 굵기
+
+  noStroke();		// 원의 외곽선 없음
+  ellipse(100, 100, 120, 120); 
+
+  stroke(0);          // stroke(gray)에서 gray=0(검정)∼255(흰색) 범위로 선의 색상 설정
+  ellipse(200, 100, 120, 120);
+
+  stroke(255, 0, 0); 	// stroke(r, g, b)에서 빨강(red) 값을 최대치 255로 설정
+  ellipse(300, 100, 120, 120);
+
+  stroke(0, 255, 0);	// stroke(r, g, b)에서 녹색(green) 값을 최대치 255로 설정
+  ellipse(400, 100, 120, 120);
+
+  stroke(0, 0, 255);	// stroke(r, g, b)에서 파랑(blue) 값을 최대치 255로 설정
+  ellipse(500, 100, 120, 120);
+}

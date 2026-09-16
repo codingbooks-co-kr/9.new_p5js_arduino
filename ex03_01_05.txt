@@ -1,0 +1,18 @@
+// 문자열(let) 변수를 사용하여 문자열 출력
+
+let s = 'Hello, p5.js!';			// 문자열 변수 선언 및 초기화
+let x = 70, y = 70;
+
+function setup() {
+  createCanvas(400, 300);
+  background(200);
+
+  fill(255, 0, 0);  			// 문자열 색상 설정
+  textSize(30);
+  text(s, x, y);			// 문자열 출력
+  text(s, x, y*2); 			// 문자열 출력
+  text(s, y, y*3);			// 문자열 출력
+
+  console.log(s, x, y);		// 콘솔창에 출력
+  console.log(s + x + y);		// 콘솔창에 출력
+}

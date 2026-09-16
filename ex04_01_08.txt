@@ -1,0 +1,19 @@
+// 마우스가 원 안에 들어오면 원의 색상 변경
+
+let d, r = 100.0;
+
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  background(0);
+  d = dist(width/2, height/2, mouseX, mouseY);
+  if (d < r) {
+    fill(255, 0, 0);
+  } else {
+    fill(255, 255, 255);
+  }
+  ellipse(width/2, height/2, r*2, r*2);
+  print(d);
+}

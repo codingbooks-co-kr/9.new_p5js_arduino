@@ -1,0 +1,15 @@
+// ❷ 전역변수만 사용
+
+// 전역변수
+let s = 150, r = 10;
+
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  background(0);
+  rectMode(CENTER);
+  rect(s, s, r, r);
+  r++;
+}

@@ -1,0 +1,19 @@
+// 마우스를 누르는 좌표에 원 생성
+
+let x = 0, y = 0, d = 50;
+
+function setup() {
+  createCanvas(500, 500);
+  background(0);
+}
+
+function draw() {
+  noStroke();
+  fill(255, 255, 0);
+  ellipse(x, y, d, d);
+}
+
+function mousePressed() {
+  x = mouseX;
+  y = mouseY;
+}

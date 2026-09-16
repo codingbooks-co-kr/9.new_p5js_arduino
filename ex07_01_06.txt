@@ -1,0 +1,25 @@
+// 마우스가 원 내부인지 외부인지에 따라 배경색 변경
+
+let r = 100.0;
+
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  if (check()) {
+    background(255, 0, 0);
+  } else {
+    background(0);
+  }
+  ellipse(width/2, height/2, r*2, r*2);
+}
+
+function check() {
+  let d = dist(width/2, height/2, mouseX, mouseY);
+  if (d < r) {
+    return true;
+  } else {
+    return false;
+  }
+}

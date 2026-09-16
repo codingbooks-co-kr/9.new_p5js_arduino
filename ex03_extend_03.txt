@@ -1,0 +1,16 @@
+function setup() {
+  createCanvas(300, 100);
+  background(200);
+  let c1 = 'A'; 			// ❶ 문자로 저장
+  let c2 = '\u0041'; 			// ❷ 유니코드로 저장
+  let c3 = char(65); 			// ❸ 10진수 문자코드로 저장
+  let c4 = char(0b01000001);		// ❹ 2진수 문자코드로 저장
+  let c5 = char(0x41); 		// ❺ 16진수 문자코드로 저장
+
+  textSize(50);
+  text(c1, 50, 50);
+  text(c2, 100, 50);
+  text(c3, 150, 50);
+  text(c4, 200, 50);
+  text(c5, 250, 50);
+}

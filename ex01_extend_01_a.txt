@@ -1,0 +1,13 @@
+// 정상: 랜덤한 색상의 원
+
+let col;
+
+function setup() {
+  createCanvas(200, 200);
+  col = random(255);		// 정상!
+}
+
+function draw() {
+  fill(col);
+  ellipse(width/2, height/2, 100, 100);
+}

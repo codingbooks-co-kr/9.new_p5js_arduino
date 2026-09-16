@@ -1,0 +1,8 @@
+// 정적 방식
+
+function setup() {	// 초기화 함수
+  createCanvas(300, 300);
+  console.log('Hello, p5.js!');
+}
+
+function draw() { }  	// 반복 함수

@@ -1,0 +1,7 @@
+// let을 사용한 호이스팅 → 불가능
+
+function setup() {
+  print(name);		// 오류!
+  let name = 'javascript';
+  print(name);
+}

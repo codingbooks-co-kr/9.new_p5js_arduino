@@ -1,0 +1,17 @@
+// 마우스의 좌우 버튼을 누르거나 떼면 원의 색상 변경 (mouseButton을 사용)
+
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  background(0);
+  if (mouseIsPressed && (mouseButton === LEFT)) {
+    fill(255, 0, 0);
+  } else if (mouseIsPressed && (mouseButton === RIGHT)) {
+    fill(0, 255, 0);
+  } else {
+    fill(0, 0, 255);
+  }
+  ellipse(width/2, height/2, 200, 200);
+}

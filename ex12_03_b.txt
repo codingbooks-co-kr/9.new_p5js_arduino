@@ -1,0 +1,44 @@
+// p5.js: 마우스의 좌우 및 상하 움직임값 2개를 송신
+
+let port = new p5.WebSerial();		// 시리얼 통신을 위한 객체 생성
+let value1 = 0, value2 = 0;
+
+function setup() {
+  createCanvas(500, 500);
+  port.getPorts();			// 포트 사용 가능 여부 확인
+  port.on('noport', makePortButton);	// 기존 선택한 포트가 없으면 makePortButton() 호출
+  port.on('portavailable', openPort);	// 사용 가능한 포트가 있으면 openPort() 자동 호출
+  port.on('data', serialEvent);		// 수신값이 있으면 serialEvent() 자동 호출
+}
+
+function draw() {
+  background(0, 10);					// 페이딩 효과 (투명도 10 부여)
+  let x = int(map(mouseX, 0, width, 0, 255));		// 좌우 이동: RGB LED의 Red값
+  value1 = constrain(x, 0, 255);			// 송신값을 1바이트 범위로 제한
+  let y = int(map(mouseY, 0, height, 0, 255));	// 상하 이동: RGB LED의 Green값
+  value2 = constrain(y, 0, 255);			// 송신값을 1바이트 범위로 제한
+
+  noStroke();				// 외곽선 제거 (부드러운 페이딩 효과)
+  fill(x, y, 255);			// 원의 색상에 적용
+  ellipse(mouseX, mouseY, 50, 50);	// 마우스를 따라 움직이는 원
+}
+
+function serialEvent() {			// 콜백함수: 시리얼버퍼에 수신값이 있으면 자동 호출
+  let signal = port.read(); 			// 수신 (통신제어신호: 'B')
+  port.write(value1 + ' ' + value2 + '\n');	// 복수 값을 하나의 문자열로 송신
+}
+
+function makePortButton() {			// 포트 첫 연결 시 포트 선택 버튼 생성
+  let portButton = createButton('포트 선택');	// 버튼 생성
+  portButton.mousePressed(choosePort);	// 버튼 누르면 choosePort() 자동 호출
+  function choosePort() {			// 콜백함수
+    port.requestPort();				// 시리얼 포트 선택창 오픈
+  }
+}
+
+function openPort() {				// 콜백함수
+  port.open().then(initiateSerial);		// 포트를 오픈 후 initiateSerial() 자동 호출
+  function initiateSerial() {			// 콜백함수
+    console.log('포트 오픈');
+  }
+}

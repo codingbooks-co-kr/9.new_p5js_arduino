@@ -1,0 +1,7 @@
+// var를 사용한 호이스팅 → 가능
+
+function setup() {
+  print(name);	// name: 선언되지 않음
+  var name = 'javascript';
+  print(name);
+}

@@ -1,0 +1,22 @@
+// 0.5초(=500msec)마다 원 랜덤 생성
+
+let interval = 0, current_time = 0, previous_time = 0;
+let x = 0, y = 0;
+
+function setup() {
+  createCanvas(300, 300);
+  background(0);
+}
+
+function draw() {
+  current_time = millis();
+  interval = current_time - previous_time;
+  if (interval > 500) {
+    previous_time = millis();
+    fill(random(255), random(255), random(255));
+    x = random(0, width);
+    y = random(0, height);
+  }
+  noStroke();
+  ellipse(x, y, 50, 50);
+}

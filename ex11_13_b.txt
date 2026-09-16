@@ -1,0 +1,69 @@
+// p5.js: 파일에 저장된 값을 읽어 아두이노로 송신
+
+let port = new p5.WebSerial();		// 시리얼 통신을 위한 객체 생성
+let inp, num = 0, value = [];
+
+function setup() {
+  createCanvas(500, 200);
+  port.getPorts();			// 포트 사용 가능 여부 확인
+  port.on('noport', makePortButton);	// 기존 선택한 포트가 없으면 makePortButton() 호출
+  port.on('portavailable', openPort);	// 사용 가능한 포트가 있으면 openPort() 자동 호출
+
+  createP("Please choose a text file!");		// 문단형 텍스트 출력
+  inp = createFileInput(readFile);		// 파일을 선택하면 콜백함수(readFile) 호출
+}
+
+function draw() {
+  background(0);
+  if (value.length > 0 && value.length > num + 3) {
+    let h = int(value[num]); 			// 시 (정수로 형변환)
+    let m = int(value[num + 1]); 		// 분 (정수로 형변환)
+    let s = int(value[num + 2]); 		// 초 (정수로 형변환)
+    let val = int(value[num + 3]); 		// 가변저항값 (정수로 형변환)
+
+    // 시, 분, 초 표시
+    fill(255, 255, 0);
+    textAlign(CENTER, CENTER);
+    textSize(30);
+    text("Time: " + nf(h, 2) + ":" + nf(m, 2) + ":" + nf(s, 2), width/2, 30);
+
+    // 가변저항값 표시
+    textSize(50);
+    text('가변저항값: ' + nf(val, 4), width / 2, height / 2);
+    
+    // 가변저항값 송신
+    val = int(map(val, 0, 1023, 0, 255));	// 값을 1바이트 범위(0∼255)로 변경
+    port.write(val);				// 값 송신
+    num += 4;
+  }
+}
+
+function readFile(file) {				// 파일이 로드될 때 자동 호출
+  console.log(file.name, file.type, file.size);	// 파일 정보 읽기
+  if (file.type === "text") {
+    let str = file.data;
+    value = splitTokens(str, ":\n"); 		// ":"로 분리된 데이터를 문자열 배열로 저장
+  } else {
+    createP("Please choose a text file!");	
+  }
+}
+
+function keyPressed() {
+  if (key === "a")				// ‘a’ 키를 누르면
+    num = 0;					// 처음부터 다시 데이터 읽기
+}
+
+function makePortButton() {			// 포트 첫 연결 시 포트 선택 버튼 생성
+  let portButton = createButton('포트 선택');	// 버튼 생성
+  portButton.mousePressed(choosePort);	// 버튼 누르면 choosePort() 자동 호출
+  function choosePort() {			// 콜백함수
+    port.requestPort();				// 시리얼 포트 선택창 오픈
+  }
+}
+
+function openPort() {				// 콜백함수
+  port.open().then(initiateSerial);		// 포트를 오픈 후 initiateSerial() 자동 호출
+  function initiateSerial() {			// 콜백함수
+    console.log('포트 오픈');
+  }
+}

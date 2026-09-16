@@ -1,0 +1,43 @@
+// p5.js: 마우스 x, y축 위치값(0∼255) 송신
+
+let port = new p5.WebSerial();		// 시리얼 통신을 위한 객체 생성
+let value1 = 0, value2 = 0;
+
+function setup() {
+  createCanvas(500, 200);
+  port.getPorts();			// 포트 사용 가능 여부 확인
+  port.on('noport', makePortButton);	// 기존 선택한 포트가 없으면 makePortButton() 호출
+  port.on('portavailable', openPort);	// 사용 가능한 포트가 있으면 openPort() 자동 호출
+}
+
+function draw() {
+  background(0);
+  value1 = int(map(mouseX, 0, width, 0, 180));	// 서보모터 각도값
+  value1 = constrain(value1, 0, 180);			// 0∼180도로 회전범위 제한
+  value2 = int(map(mouseY, 0, height, 0, 255));	// LED 밝기값
+  value2 = constrain(value2, 0, 255);
+
+  fill(255, 255, 0);
+  textSize(30);
+  text('각도: ' + nf(value1, 3), 10, 50);
+  text('밝기: ' + nf(value2, 3), 10, 100);
+  fill(0, 255, 0);
+  text('마우스 움직임(X: Servo, Y: LED)', 10, 150);
+
+  port.write(value1 + ' ' + value2 + '\n');	// 하나의 문자열 송신
+}
+
+function makePortButton() {			// 포트 첫 연결 시 포트 선택 버튼 생성
+  let portButton = createButton('포트 선택');	// 버튼 생성
+  portButton.mousePressed(choosePort);	// 버튼 누르면 choosePort() 자동 호출
+  function choosePort() {			// 콜백함수
+    port.requestPort();				// 시리얼 포트 선택창 오픈
+  }
+}
+
+function openPort() {				// 콜백함수
+  port.open().then(initiateSerial);		// 포트를 오픈 후 initiateSerial() 자동 호출
+  function initiateSerial() {			// 콜백함수
+    console.log('포트 오픈');
+  }
+}

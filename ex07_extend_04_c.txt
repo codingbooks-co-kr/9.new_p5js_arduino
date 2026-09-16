@@ -1,0 +1,11 @@
+// 실행할 때마다 동일 패턴의 랜덤값 출력
+
+function setup() {
+  createCanvas(200, 100);
+  randomSeed(0);
+  for (let i = 0; i < width; i++) {
+    let r = random(255);
+    stroke(r);
+    line(i, 0, i, 100);
+  }
+}

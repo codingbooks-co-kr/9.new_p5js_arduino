@@ -1,0 +1,16 @@
+// 갱신할 필요없는 상수는 const로 선언
+const s = 150;
+
+// 갱신해야 할 변수는 let으로 선언
+let r = 10;
+
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  background(0);
+  rectMode(CENTER);
+  rect(s, s, r, r);
+  r++;
+}

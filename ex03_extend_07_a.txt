@@ -1,0 +1,47 @@
+// 변수 선언 시 다양한 데이터값과 데이터형 출력
+
+function setup() {
+  // 기본형 - 숫자(number)
+  let data1 = 10;		// 숫자형(number)
+  console.log(data1, typeof data1);
+  let data2 = 10.5;		// 숫자형(number)
+  console.log(data2, typeof data2);
+  let data3 = 5/0;		// 숫자형(Infinity)
+  console.log(data3, typeof data3);
+  let data4 = -5/0;		// 숫자형(-Infinity)
+  console.log(data4, typeof data4);
+  let data5 = 'p5.js'/2;		// 숫자형(NaN)
+  console.log(data5, typeof data5);
+  
+  // 기본형 - 문자열(string)
+  let data6 = 'p';		// 문자열형(string)
+  console.log(data6, typeof data6);
+  let data7 = 'p5.js';		// 문자열형(string)
+  console.log(data7, typeof data7);
+  
+  // 기본형 - 논리(boolean)
+  let data8 = 3 > 2;		// boolean(true)
+  console.log(data8, typeof data8);
+  let data9 = 3 < 2;		// boolean(false)
+  console.log(data9, typeof data9);
+  
+  // 기본형 - 특수(null, undefined)
+  let data10 = null;		// null
+  console.log(data10, typeof data10);
+  let data11;			// undefined
+  console.log(data11, typeof data11);
+
+  // 객체형 – 배열, 함수, 객체리터럴, 클래스
+  let data12 = [1,2,3];		// 배열
+  console.log(data12, typeof data12);
+
+  let data13 = function () { };	// 함수
+  console.log(data13, typeof data13);
+
+  let data14 = {name: "kim"}; 	// 객체리터럴
+  console.log(data14, typeof data14);
+
+  class Circle {} 		// 클래스
+  let data15 = new Circle();
+  console.log(data15, typeof data15);
+}

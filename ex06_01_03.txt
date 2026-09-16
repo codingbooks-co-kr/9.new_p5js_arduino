@@ -1,0 +1,15 @@
+// 배열과 반복문을 사용하여 세 개의 원을 오른쪽으로 이동
+
+let x = [-50, 0, 50];
+
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  background(0);
+  for (let i = 0; i < 3; i++) {
+    ellipse(x[i], (80*i)+80, 50, 50);
+    x[i]++;
+  }
+}

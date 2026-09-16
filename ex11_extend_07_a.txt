@@ -1,0 +1,8 @@
+// 아스키코드를 문자, 10진수, 16진수, 2진수 순으로 출력1
+
+function setup() {
+  print('ASCII Table');
+  for (let i = 0; i < 128; i++) {
+    print(char(i) + ', DEC: ' + i + ', HEX: ' + hex(i, 2) + ', BIN: ' + i.toString(2));
+  }
+}

@@ -1,0 +1,51 @@
+// p5.js: 가변저항값 2개 수신하여 원 이동 2
+
+let port = new p5.WebSerial();		// 시리얼 통신을 위한 객체 생성
+let value1 = 0, value2 = 0;
+
+function setup() {
+  createCanvas(500, 500);
+  port.getPorts();			// 포트 사용 가능 여부 확인
+  port.on('noport', makePortButton);	// 기존 선택한 포트가 없으면 makePortButton() 호출
+  port.on('portavailable', openPort);	// 사용 가능한 포트가 있으면 openPort() 자동 호출
+  port.on('data', serialEvent);		// 수신값이 있으면 serialEvent() 자동 호출
+}
+
+function draw() {
+  background(0, 10);			// 페이딩 효과 (투명도 10 부여)
+  noStroke();				// 외곽선 제거 (부드러운 페이딩 효과)
+  fill(255, 255, 0);
+  ellipse(value1, value2, 50, 50);	// 가변저항값 두 개를 원의 x,y 좌표에 적용
+}
+
+function serialEvent() {			// 시리얼 버퍼에 수신되면 자동 호출
+  while (port.available() >= 5) {		// 수신값이 5바이트 이상일 때
+    let signal = port.read();		// 수신값 읽기
+    if (signal === 0xff) {     		// 동기신호(0xff) 확인
+      let high_byte = port.read();	// 가변저항1의 상위 바이트 수신 
+      let low_byte = port.read();	// 가변저항1의 하위 바이트 수신 
+      let two_byte = (high_byte << 8) | low_byte;	// 상·하위 바이트 합치기
+      value1 = map(two_byte, 0, 1023, 0, width);	// 범위 변경: (0∼1024)→(0∼width)
+
+      high_byte = port.read();		// 가변저항2의 상위 바이트 수신 
+      low_byte = port.read();		// 가변저항2의 하위 바이트 수신 
+      two_byte = (high_byte << 8) | low_byte;	// 상·하위 바이트 합치기
+      value2 = map(two_byte, 0, 1023, 0, height);	// 범위 변경: (0∼1024)→(0∼height)
+    }
+  }
+}
+
+function makePortButton() {			// 포트 첫 연결 시 포트 선택 버튼 생성
+  let portButton = createButton('포트 선택');	// 버튼 생성
+  portButton.mousePressed(choosePort);	// 버튼 누르면 choosePort() 자동 호출
+  function choosePort() {			// 콜백함수
+    port.requestPort();				// 시리얼 포트 선택창 오픈
+  }
+}
+
+function openPort() {				// 콜백함수
+  port.open().then(initiateSerial);		// 포트를 오픈 후 initiateSerial() 자동 호출
+  function initiateSerial() {			// 콜백함수
+    console.log('포트 오픈');
+  }
+}

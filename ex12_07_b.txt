@@ -1,0 +1,44 @@
+// p5.js: 인터럽트 방식
+// 마우스 위치값 송신, 가변저항값 수신
+
+let port = new p5.WebSerial();
+let value1 = 0, value2 = 0;
+
+function setup() {
+  createCanvas(500, 500);
+  port.getPorts();
+  port.on('noport', makePortButton);
+  port.on('portavailable', openPort);
+  port.on('data', serialEvent);
+}
+
+function draw() {
+  let x = int(map(mouseX, 0, width, 0, 255));
+  value1 = constrain(x, 0, 255);
+  background(value1);
+
+  let size = map(value2, 0, 255, 0, width);
+  fill(255, 255, 0);
+  ellipse(width/2, height/2, size, size);
+}
+
+// 수신값이 있으면 자동 호출
+function serialEvent() {
+  value2 = port.read();		// 수신
+  port.write(value1);		// 송신
+}
+
+function makePortButton() {
+  let portButton = createButton('포트선택');
+  portButton.mousePressed(choosePort);
+  function choosePort() {
+    port.requestPort();
+  }
+}
+
+function openPort() {
+  port.open().then(initiateSerial);
+  function initiateSerial() {
+    console.log('포트 오픈');
+  }
+}

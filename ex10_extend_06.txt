@@ -1,0 +1,23 @@
+// 숫자를 표현하는 다양한 메소드
+
+function setup() {
+  let num = 34.567;
+  
+  let a = int(num);		// a = 34
+  console.log(a);
+  
+  let b = floor(num);		// b = 34
+  console.log(b);
+  
+  let c = round(num);		// c = 35
+  console.log(c);
+  
+  let d = round(num, 2);	// d = 34.57
+  console.log(d);
+  
+  let e = nf(num, 0, 2);	// e = 34.56
+  console.log(e);
+  
+  let f = nf(num, 4, 2);	// f = 0034.56
+  console.log(f);
+}

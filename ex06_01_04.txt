@@ -1,0 +1,21 @@
+// 오른쪽으로 이동하는 10개의 원을 생성하고 초기 위치 및 속도를 랜덤 설정
+
+let num = 10;
+let x = [], y = [], velocity = [];
+
+function setup() {
+  createCanvas(500, 300);
+  for (let i = 0; i < num; i++) {
+    x[i] = random(width);
+    y[i] = random(height);
+    velocity[i] = random(0.5, 5);
+  }
+}
+
+function draw() {
+  background(0);
+  for (let i = 0; i < num; i++) {
+    ellipse(x[i], y[i], 30, 30);
+    x[i] += velocity[i];
+  }
+}

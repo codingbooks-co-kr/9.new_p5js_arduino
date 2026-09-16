@@ -1,0 +1,19 @@
+// 마우스를 누를 때마다 원을 생성하고 배열에 추가
+
+let x = [];
+
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  background(0);
+  for (let i = 0; i < x.length; i++) {
+    ellipse(x[i], height/2, 50, 50);
+  }
+}
+
+function mousePressed() {
+  let r = random(width);
+  x.push(r);	
+}

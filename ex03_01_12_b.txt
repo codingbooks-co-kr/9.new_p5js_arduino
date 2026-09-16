@@ -1,0 +1,14 @@
+// sin() 함수를 사용하여 원의 상하 진동2
+
+let theta = 0.0;
+
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  background(0);
+  let y = map(sin(theta), -1, 1, 0, height);
+  ellipse(width/2, y, 30, 30);
+  theta += 0.1;
+}

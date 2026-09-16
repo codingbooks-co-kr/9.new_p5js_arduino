@@ -1,0 +1,21 @@
+// 16진수 컬러코드 표현: #RGB
+// RGB 컬러 표현: color(R,G,B, alpha)
+// 여기서 alpha(=00∼FF): 색상 투명도
+
+function setup() {
+  createCanvas(400, 200);
+  let c = color('#000000');
+  let c1 = color('#FF0000');
+  let c2 = color('#00FF00');
+  let c3 = color('#0000FF');
+
+  background(c);
+  fill(c1);
+  stroke(c1);
+  strokeWeight(5);
+  ellipse(100, 100, 80, 80);
+  fill(c2);
+  ellipse(200, 100, 80, 80);
+  fill(c3);
+  ellipse(300, 100, 80, 80);
+}

@@ -1,0 +1,18 @@
+// 원을 일정 속도로 이동2
+
+let x, y;
+let velocity_x = 1, velocity_y = 1;
+
+function setup() {
+  createCanvas(400, 400);
+  background(0);
+  x = width/2;		// 변수 초기화
+  y = height/2;		// 변수 초기화
+}
+
+function draw() {
+  ellipse(x, y, 30, 30);
+  x += velocity_x;
+  y += velocity_y;
+  console.log(frameCount + ' : ' + frameRate());
+}

@@ -1,0 +1,8 @@
+// const를 사용한 재할당 → 불가능
+
+function setup() {
+  const name = 'javascript';
+  print(name);
+  name = 'p5.js';	// 재할당 오류!
+  print(name);
+}

@@ -1,0 +1,17 @@
+function setup() {
+  createCanvas(windowWidth, windowHeight);		// 브라우즈의 전체 화면 크기
+}
+
+function draw() {
+  fill(255, 255, 0);
+  ellipse(mouseX, mouseY, 100, 100);
+}
+
+function mousePressed() {
+  fullscreen(true);					// 모니터의 전체 화면 크기
+}
+
+// 브라우저 창의 크기가 조정될 때마다 자동 호출
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}

@@ -1,0 +1,13 @@
+// 원의 크기가 점점 증가2
+
+let r = 0;
+
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  background(0);
+  ellipse(150, 150, r, r);
+  r = r + 1;
+}

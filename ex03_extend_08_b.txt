@@ -1,0 +1,8 @@
+// let을 사용한 재선언 → 불가능
+
+function setup() {
+  let name = 'javascript';
+  print(name);
+  let name = 'p5.js';	// 재선언 오류! 
+  print(name);
+}

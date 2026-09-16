@@ -1,0 +1,15 @@
+// p5.js에서의 이미지 출력
+
+let img;
+
+function preload() {
+  img = loadImage("flower.jpg");
+}
+
+function setup() {
+  createCanvas(200, 200);
+}
+
+function draw() {
+  image(img, 0, 0, width, height);
+}

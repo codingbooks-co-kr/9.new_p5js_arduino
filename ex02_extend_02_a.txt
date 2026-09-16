@@ -1,0 +1,10 @@
+// 원 그리는 기준점을 바꾸어 그리기
+
+function setup() {
+  createCanvas(300, 300);
+  background(200);
+  ellipseMode(CENTER);
+  ellipse(150, 150, 120, 120);
+  ellipseMode(CORNER);
+  ellipse(150, 150, 120, 120);
+}

@@ -1,0 +1,15 @@
+// 마우스를 누르면 원의 색상 변경
+
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  background(0);
+  if (mouseIsPressed) {
+    fill(255, 0, 0);
+  } else {
+    fill(255, 255, 255);
+  }
+  ellipse(width/2, height/2, 200, 200);
+}

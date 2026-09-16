@@ -1,0 +1,19 @@
+// 선과 문자열을 다양한 색상으로 표현
+
+function setup() {
+  createCanvas(300, 200);
+  background(0);
+
+  // 문자열 색상
+  fill(255, 0, 0);
+  stroke(255, 255, 0);
+  strokeWeight(5);
+  textSize(30);
+  text('Hello, p5.js!', 70, 100);  
+
+  stroke(0, 255, 0);
+  line(0, 0, 300, 200);
+
+  stroke(0, 0, 255);
+  line(300, 0, 0, 200);
+}

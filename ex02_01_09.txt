@@ -1,0 +1,11 @@
+// 도(degree)를 이용하여 다양한 각의 원호를 그리기
+
+function setup() {
+  createCanvas(500, 200);
+  background(200);
+
+  arc(100, 100, 80, 80, radians(0), radians(90));	// 원호의 각(°) 범위: 0°∼90°
+  arc(200, 100, 80, 80, radians(0), radians(180));  	// 원호의 각(°) 범위: 0°∼180°
+  arc(300, 100, 80, 80, radians(0), radians(270));  	// 원호의 각(°) 범위: 0°∼270°
+  arc(400, 100, 80, 80, radians(0), radians(360));  	// 원호의 각(°) 범위: 0°∼360°
+}

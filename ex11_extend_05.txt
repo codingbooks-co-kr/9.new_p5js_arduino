@@ -1,0 +1,23 @@
+function setup() {
+  let canvas = createCanvas(200, 100);	// 파일을 끌어당겨 놓을 캔버스
+  canvas.drop(readFile);				// 파일을 끌어당겨 놓으면 콜백함수 호출
+
+  background(0);
+  fill(255);
+  textAlign(CENTER, CENTER);
+  textSize(30);
+  text('Drop text file', width/2, height/2);
+}
+
+function readFile(file) {				// 콜백함수: 파일 로드 시 자동 호출
+  console.log(file.name, file.type, file.size);	// 파일 정보 읽기
+  if (file.type === "text") {			// 파일 형식이 "text"인 경우
+    let str = file.data;				// 파일로부터 데이터를 읽어 str에 저장
+    let value = split(str, "\n"); 			// 개행으로 분리된 데이터를 배열로 저장
+    for (var i = 0; i < value.length; i++) {
+      createP(i + " " + value[i]);		// 문자열 배열 요소 출력
+    }
+  } else {
+    createP("Please choose a text file.");
+  }
+}

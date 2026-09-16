@@ -1,0 +1,8 @@
+// var를 사용한 재선언 → 가능
+
+function setup() {
+  var name = 'javascript';
+  print(name);
+  var name = 'p5.js';	 // 재선언 정상!
+  print(name);
+}

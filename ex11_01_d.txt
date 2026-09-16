@@ -1,0 +1,43 @@
+// p5.js: 인터럽트(interrupt) 방식
+// 버튼값 수신하여 원 색상 변경
+
+let port = new p5.WebSerial();
+let value;
+
+function setup() {
+  createCanvas(500, 500);
+  port.getPorts();
+  port.on('noport', makePortButton);
+  port.on('portavailable', openPort);
+  port.on('data', serialEvent);
+}
+
+function draw() {
+  background(0);
+  if (value === 0) {
+    fill(255, 255, 0);
+  } else {
+    fill(255, 0, 0);
+  }
+  ellipse(width/2, height/2, 200, 200);
+}
+
+// 수신값이 있으면 serialEvent() 자동 호출
+function serialEvent() {
+  value = port.read();
+}
+
+function makePortButton() {
+  let portButton = createButton('포트선택');
+  portButton.mousePressed(choosePort);
+  function choosePort() {
+    port.requestPort();
+  }
+}
+
+function openPort() {
+  port.open().then(initiateSerial);
+  function initiateSerial() {
+    console.log('포트 오픈');
+  }
+}

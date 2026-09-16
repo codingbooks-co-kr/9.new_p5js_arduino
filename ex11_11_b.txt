@@ -1,0 +1,64 @@
+// p5.js: 가변저항값 수신 후 파일 저장
+
+let port = new p5.WebSerial();		// 시리얼 통신을 위한 객체 생성
+let out, value = 0; 
+
+function setup() {
+  createCanvas(500, 200);
+  port.getPorts();			// 포트 사용 가능 여부 확인
+  port.on('noport', makePortButton);	// 기존 선택한 포트가 없으면 makePortButton() 호출
+  port.on('portavailable', openPort);	// 사용 가능한 포트가 있으면 openPort() 자동 호출
+  port.on('data', serialEvent);		// 수신값이 있으면 serialEvent() 자동 호출
+
+  out = createWriter("data.txt");	// ❶ 저장할 파일 생성
+}
+
+function draw() {
+  background(0);
+  let h = hour();			// 시간 (함수의 반환값: 0∼23)
+  let m = minute();			// 분 (함수의 반환값: 0∼59)
+  let s = second();			// 초 (함수의 반환값: 0∼59)
+
+  // 시간, 분, 초를 표시
+  fill(255, 255, 0);
+  textAlign(CENTER, CENTER);
+  textSize(30);
+  text("Time: " + nf(h, 2) + ":" + nf(m, 2) + ":" + nf(s, 2), width/2, 30);
+
+  // 가변저항값을 표시
+  textSize(50);
+  text('가변저항값: ' + nf(value, 4), width/2, height/2);
+  // ❷ 시간, 분, 초, 가변저항값을 차례로 파일에 쓰기
+  out.print(h + ":" + m + ":" + s + ":" + nf(value, 4));
+}
+
+function serialEvent() {
+  while (port.available() >= 3) {
+    let signal = port.readChar();
+    if (signal === 'A') {    			// 수신값이 동기신호(‘A’)일 때
+      let value1 = port.read();			// 상위 2자리값 읽기
+      let value2 = port.read(); 		// 하위 2자리값 읽기
+      value = value1 * 100 + value2;		// 상·하위 자리값 합치기
+    }
+  }
+}
+
+function mousePressed() {			// 마우스를 누르면
+  out.close();					// ❸ 파일 닫기
+  console.log('파일 닫음');
+}
+
+function makePortButton() {			// 포트 첫 연결 시 포트 선택 버튼 생성
+  let portButton = createButton('포트 선택');	// 버튼 생성
+  portButton.mousePressed(choosePort);	// 버튼 누르면 choosePort() 자동 호출
+  function choosePort() {			// 콜백함수
+    port.requestPort();				// 시리얼 포트 선택창 오픈
+  }
+}
+
+function openPort() {				// 콜백함수
+  port.open().then(initiateSerial);		// 포트를 오픈 후 initiateSerial() 자동 호출
+  function initiateSerial() {			// 콜백함수
+    console.log('포트 오픈');
+  }
+}

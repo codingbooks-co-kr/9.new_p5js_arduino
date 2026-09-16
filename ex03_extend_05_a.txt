@@ -1,0 +1,17 @@
+// console.log()의 출력 예
+
+let n1 = 12;
+let n2 = 12.345;
+let s1 = 'A';
+let s2 = 'p5.js';
+let b1 = true;
+let b2 = false;
+
+function setup() {  
+  console.log(n1);
+  console.log(n2);
+  console.log(s1);
+  console.log(s2);
+  console.log(b1);
+  console.log(b2);
+}

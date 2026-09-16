@@ -1,0 +1,41 @@
+// p5.js: 키보드 정수(1∼4) 송신
+
+let port = new p5.WebSerial();
+
+function setup() {
+  createCanvas(500, 200);
+  port.getPorts();
+  port.on('noport', makePortButton);
+  port.on('portavailable', openPort);
+
+  background(0);
+  fill(255, 255, 0);
+  textAlign(CENTER, CENTER);
+  textSize(30);
+  text("1∼4키 누르기", width/2, height/2);
+}
+
+function draw() { }
+
+function keyPressed() {
+  if (key === '1') port.write(1);
+  else if (key === '2') port.write(2);
+  else if (key === '3') port.write(3);
+  else if (key === '4') port.write(4);
+  else port.write(0);
+}
+
+function makePortButton() {
+  let portButton = createButton('포트 선택');
+  portButton.mousePressed(choosePort);
+  function choosePort() {
+    port.requestPort();
+  }
+}
+
+function openPort() {
+  port.open().then(initiateSerial);
+  function initiateSerial() {
+    console.log('포트 오픈');
+  }
+}

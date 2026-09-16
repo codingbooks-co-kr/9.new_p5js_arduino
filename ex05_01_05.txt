@@ -1,0 +1,13 @@
+// 마우스의 y축 현재 위치까지 선을 반복하여 그리기
+
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  background(0);
+  for (let y = 0; y < mouseY; y += 10) {
+    stroke(255);
+    line(0, y, width, y);
+  }
+}

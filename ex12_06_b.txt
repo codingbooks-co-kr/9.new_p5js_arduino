@@ -1,0 +1,49 @@
+// p5.js: 인터럽트 방식
+// 푸시버튼값 2개 수신 → 원 이동
+
+let port = new p5.WebSerial();
+let x = 250;
+
+function setup( ) {
+  createCanvas(500, 200);
+  port.getPorts();
+  port.on('noport', makePortButton);
+  port.on('portavailable', openPort);
+  port.on('data', serialEvent);
+}
+
+function draw() {
+  background(0, 10);
+  noStroke();
+  fill(255, 255, 0);
+  ellipse(x, height/2, 50, 50);
+  x = constrain(x, 0, width);
+}
+
+// 수신값이 있으면 자동 호출
+function serialEvent() {
+  let str = port.readLine();	// 수신
+  if (!str) return;
+  let s = trim(str);
+  let value = split(s, ',');
+  port.write('B');		// 송신
+
+  if (value.length !== 2) return;
+  if (int(value[0]) === 0) x -= 2;
+  if (int(value[1]) === 0) x += 2;
+}
+
+function makePortButton() {
+  let portButton = createButton('포트선택');
+  portButton.mousePressed(choosePort);
+  function choosePort() {
+    port.requestPort();
+  }
+}
+
+function openPort() {
+  port.open().then(initiateSerial);
+  function initiateSerial() {
+    console.log('포트 오픈');
+  }
+}

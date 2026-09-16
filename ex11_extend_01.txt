@@ -1,0 +1,60 @@
+// p5.js: 버튼값 수신하여 원 색상 변경 (아두이노 코드는 [질문11.1] 참조)
+
+let port = new p5.WebSerial();		// 시리얼 통신을 위한 객체 생성
+let options = { baudRate: 9600 };	// 시리얼 통신속도 설정 (기본설정: 9600bps)
+let value = 0;
+
+function setup() {
+  createCanvas(500, 500);
+  console.log(navigator);		// navigator 객체 출력(웹브라우저 관련정보 포함)
+  if (navigator.serial) {			// navigator 객체의 serial 속성이 true인 경우
+    console.log("본 브라우저는 Web Serial API를 지원함");
+  }
+  port.getPorts();			// 포트 사용 가능 여부 확인
+  port.on('noport', makePortButton);	// 기 선택 포트 없으면 makePortButton() 호출
+  port.on('open', serialStrart);		// 시리얼 통신 시작 시 serialStrart() 호출
+  port.on('portavailable', openPort);	// 사용 가능한 포트가 있으면 openPort() 호출
+  port.on('data', serialEvent);		// 수신값이 있으면 serialEvent() 자동 호출
+  port.on('close', serialClose);		// 시리얼 포트가 닫히면 serialClose() 호출
+  port.on('requesterror', requestError);	// 시리얼 포트 요청 오류 시 requestError() 호출
+}
+
+function draw() {
+  background(0);
+  if (value === 0) fill(255, 255, 0);		// 수신값이 0이면 노란색
+  else fill(255, 0, 0);				// 수신값이 0이 아니면 빨간색
+  ellipse(width/2, height/2, 200, 200);
+}
+
+function serialEvent() {				// 콜백함수: 수신값이 있으면 자동 호출
+  value = port.read();				// 수신값 저장
+}
+
+function serialStrart() {				// 콜백함수: 시리얼 통신 시작 시 호출
+  console.log('시리얼 통신 시작!');
+  port.clear();					// 시리얼 버퍼의 기 수신값 삭제
+}
+
+function makePortButton() {			// 포트 첫 연결 시 포트 선택 버튼 생성
+  let portButton = createButton('포트 선택');	// 버튼 생성
+  portButton.mousePressed(choosePort);	// 버튼 누르면 choosePort() 자동 호출
+  function choosePort() {			// 콜백함수
+    port.requestPort();				// 시리얼 포트 선택창 오픈
+  }
+}
+
+function openPort() {				// 콜백함수: 사용 가능한 포트 열기
+  port.open(options).then(initiateSerial);		// 포트를 오픈 후 initiateSerial() 호출
+  function initiateSerial() {			// 콜백함수
+    console.log('포트 열림');
+  }
+}
+
+function serialClose() {				// 콜백함수: 포트 닫기
+  port.close();					// 포트 닫음
+  console.log('포트 닫힘');
+}
+
+function requestError(err) {			// 콜백함수: 포트 요청 오류
+  console.log('포트 오류: ' + err);		// 포트 요청 오류 메시지 출력
+}

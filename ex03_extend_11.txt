@@ -1,0 +1,21 @@
+// 다양한 데이터형으로 변경 (재할당, 즉 변숫값 변경)
+
+function setup() {
+  let data; 			// undefined
+  console.log(data, typeof data);
+
+  data = 10; 			// 숫자형(number)
+  console.log(data, typeof data);
+
+  data = "p5.js"; 		// 문자형(string)
+  console.log(data, typeof data);
+
+  data = 3 > 2;		// 논리형(boolean)
+  console.log(data, typeof data);
+
+  data = null; 			// null
+  console.log(data, typeof data);
+
+  data = [1, 2, 3]; 		// 참조형(배열)
+  console.log(data, typeof data);
+}

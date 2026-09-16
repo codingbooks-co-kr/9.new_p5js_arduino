@@ -1,0 +1,21 @@
+// p5.js에서의 비트 연산 예
+
+function setup() {
+  let x = 12; 			// x = 1100 (10진수: 12)
+  let y = 7; 			// y = 0111 (10진수: 7)
+  let result1 = x & y; 		// x & y = 0100 (10진수: 4)
+  let result2 = x | y; 		// x | y = 1111 (10진수: 15)
+  let result3 = x ^ y; 		// x ^ y = 1111 (10진수: 11)
+  let result4 = ~x; 		// ~x = 0011 (10진수: -13)
+  let result5 = y >> 2; 	// y >> 2 = 0001 (10진수: 1)
+  let result6 = y << 2; 	// y << 2 = 11100 (10진수: 28)
+
+  console.log("x = " + x + "\t\t" + " = " + x.toString(2));
+  console.log("y = " + y + "\t\t" + " = " + y.toString(2));
+  console.log("x & y = " + result1 + "\t" + " = " + result1.toString(2));
+  console.log("x | y = " + result2 + "\t" + " = " + result2.toString(2));
+  console.log("x ^ y = " + result3 + "\t" + " = " + result3.toString(2));
+  console.log("~x = " + result4 + "\t" + " = " + result4.toString(2));
+  console.log("y >> 2 = " + result5 + "\t" + " = " + result5.toString(2));
+  console.log("y << 2 = " + result6 + "\t" + " = " + result6.toString(2));
+}

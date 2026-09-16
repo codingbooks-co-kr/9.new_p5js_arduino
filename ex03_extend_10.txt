@@ -1,0 +1,15 @@
+let x = 200, y = 200;         	// 위치
+let velocity_x = 1, velocity_y = 1;	// 속도
+
+function setup() {
+  createCanvas(400, 400);
+  background(0);
+  frameRate(10);                 	// 프레임율 변경
+}
+
+function draw() {
+  ellipse(x, y, 30, 30);
+  x += velocity_x;
+  y += velocity_y;
+  console.log(frameRate());		// 프레임율 출력
+}

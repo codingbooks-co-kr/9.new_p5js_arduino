@@ -1,0 +1,15 @@
+// 가로선 그리기3
+// 변수 사용
+
+// 변수 선언 및 초기화
+let x1 = 50, x2 = 250, y = 60;
+
+function setup() {
+  createCanvas(300, 300);
+  background(200);
+
+  line(x1, y, x2, y);
+  line(x1, y*2, x2, y*2);
+  line(x1, y*3, x2, y*3);
+  line(x1, y*4, x2, y*4);
+}

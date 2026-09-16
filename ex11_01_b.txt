@@ -1,0 +1,38 @@
+// p5.js: 푸시버튼값 수신하여 원 색상 변경
+
+let port = new p5.WebSerial();		// 시리얼 통신을 위한 객체 생성
+let value = 0;
+
+function setup() {
+  createCanvas(500, 500);
+  port.getPorts();			// 포트 사용 가능 여부 확인
+  port.on('noport', makePortButton);	// 기존 선택한 포트가 없으면 makePortButton() 호출
+  port.on('portavailable', openPort);	// 사용 가능한 포트가 있으면 openPort() 자동 호출
+  port.on('data', serialEvent);		// 수신값이 있으면 serialEvent() 자동 호출
+}
+
+function draw() {
+  background(0);
+  if (value === 0) fill(255, 255, 0);		// 수신값이 0이면 노란색
+  else fill(255, 0, 0);				// 수신값이 0이 아니면 빨간색
+  ellipse(width/2, height/2, 200, 200);
+}
+
+function serialEvent() {				// 콜백함수: 수신값이 있으면 자동 호출
+  value = port.read();				// 수신값 저장
+}
+
+function makePortButton() {			// 포트 첫 연결 시 포트 선택 버튼 생성
+  let portButton = createButton('포트 선택');	// 버튼 생성
+  portButton.mousePressed(choosePort);	// 버튼 누르면 choosePort() 자동 호출
+  function choosePort() {			// 콜백함수
+    port.requestPort();				// 시리얼 포트 선택창 오픈
+  }
+}
+
+function openPort() {				// 콜백함수
+  port.open().then(initiateSerial);		// 포트를 오픈 후 initiateSerial() 자동 호출
+  function initiateSerial() {			// 콜백함수
+    console.log('포트 오픈');
+  }
+}

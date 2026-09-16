@@ -1,0 +1,27 @@
+function setup() {
+  createCanvas(500, 300);
+  fill(255, 255, 0);
+  textAlign(CENTER);
+  textSize(50);
+}
+
+function draw() {
+  background(0);
+
+  // 년, 월, 일 표시
+  let y = year();
+  let m = month();		// 반환값: 1∼12
+  let d = day();		// 반환값: 1∼31
+  text(nf(y, 2) + ":" + nf(m, 2) + ":" + nf(d, 2), width/2, 100);
+
+  // 시간, 분, 초 표시
+  let h = hour();		// 반환값: 0∼23
+  let min = minute();		// 반환값: 0∼59
+  let s = second();		// 반환값: 0∼59
+  text("Time: " + nf(h, 2) + ":" + nf(min, 2) + ":" + nf(s, 2), width/2, 200);
+
+  if (millis() > 5000) {		// 프로그램 실행 경과 시간이 5000msec를 넘을 때
+    print("Stop!");
+    noLoop();		// draw() 함수의 반복 실행 정지
+  }
+}

@@ -1,0 +1,10 @@
+function setup() {
+  let a = 10, b = 5;
+
+  console.log('a > b: ' + (a > b));	// 결과: true
+  console.log('a < b: ' + (a < b)); 	// 결과: false
+  console.log('a >= b: ' + (a >= b));	// 결과: true
+  console.log('a <= b: ' + (a <= b));	// 결과: false
+  console.log('a === b: ' + (a === b));	// 결과: false
+  console.log('a !== b: ' + (a !== b));	// 결과: true
+}

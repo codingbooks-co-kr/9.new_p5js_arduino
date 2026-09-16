@@ -1,0 +1,16 @@
+// 원을 두 개 생성
+
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  background(0);
+  display(100, 100);
+  display(200, 200);
+}
+
+function display(x, y) {
+  fill(255, 255, 0);
+  ellipse(x, y, 120, 120);
+}

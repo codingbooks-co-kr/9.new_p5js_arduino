@@ -1,0 +1,43 @@
+// p5.js(인터럽트 방식): 마우스 x축 위치값(0∼255) 송신
+
+let port = new p5.WebSerial(); 	// 시리얼 통신 객체 생성
+let value = 0;
+
+function setup() {
+  createCanvas(500, 200);
+  port.getPorts();			// 포트 사용 가능 여부 확인
+  port.on('noport', makePortButton);	// 기존 선택한 포트가 없으면 makePortButton() 호출
+  port.on('portavailable', openPort);	// 사용 가능한 포트가 있으면 openPort() 자동 호출
+  port.on('data', serialEvent);		// 수신값이 있으면 serialEvent() 자동 호출
+}
+
+function draw() {
+  background(0);
+  let x = int(map(mouseX, 0, width, 0, 255));		// mouseX 범위를 0∼255로 변경
+  value = constrain(x, 0, 255);			// 송신값을 1바이트(0∼255) 범위로 제한
+
+  fill(255, 255, 0);
+  textAlign(CENTER, CENTER);
+  textSize(30);
+  text('LED 밝기: ' + nf(value, 3), width/2, height/2);
+}
+
+function serialEvent() {				// 수신값이 있으면 자동 호출
+  let signal = port.read();			// 수신
+  port.write(value);        			// 송신
+}
+
+function makePortButton() {			// 포트 첫 연결 시 포트 선택 버튼 생성
+  let portButton = createButton('포트 선택');	// 버튼 생성
+  portButton.mousePressed(choosePort);	// 버튼 누르면 choosePort() 자동 호출
+  function choosePort() {			// 콜백함수
+    port.requestPort();				// 시리얼 포트 선택창 오픈
+  }
+}
+
+function openPort() {				// 콜백함수
+  port.open().then(initiateSerial);		// 포트를 오픈 후 initiateSerial() 자동 호출
+  function initiateSerial() {			// 콜백함수
+    console.log('포트 오픈');
+  }
+}

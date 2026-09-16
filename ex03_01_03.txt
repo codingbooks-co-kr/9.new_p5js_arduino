@@ -1,0 +1,15 @@
+// 가로선 그리기
+
+let x1 = 50.5, x2 = 250.5, y = 100.5;
+
+function setup() {
+  createCanvas(300, 300);
+  background(200);
+
+  line(x1, y%30, x2, y%30);
+  line(x1, y/2, x2, y/2);
+  line(x1, y-30, x2, y-30);
+  line(x1, y, x2, y);
+  line(x1, y+30, x2, y+30);
+  line(x1, y*2, x2, y*2);
+}

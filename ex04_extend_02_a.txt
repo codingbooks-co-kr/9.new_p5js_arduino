@@ -1,0 +1,8 @@
+// p5.js: 비교 연산 결과
+
+function setup() {
+  console.log(10 > 5);
+  console.log(10 < 5);
+  console.log(10 === 5);
+  console.log(10 !== 5);
+}

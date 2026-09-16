@@ -1,0 +1,20 @@
+// 배열 사용
+
+let x = [];
+
+function setup() {
+  createCanvas(300, 300);
+  x[0] = -50;
+  x[1] = 0;
+  x[2] = 50;
+}
+
+function draw() {
+  background(0);
+  ellipse(x[0], 80, 50, 50);
+  ellipse(x[1], 160, 50, 50);
+  ellipse(x[2], 240, 50, 50);
+  x[0]++;
+  x[1]++;
+  x[2]++;
+}

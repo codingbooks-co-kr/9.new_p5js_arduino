@@ -1,0 +1,23 @@
+// 랜덤하지만 방향성을 가진 1000개의 점
+
+let num = 1000;
+let x = [], y = [];
+
+function setup() {
+  createCanvas(300, 300);
+  for (let i = 0; i < num; i++) {	// 배열 요소의 초깃값 설정
+    x[i] = random(width);		// x좌표 초기 위치 랜덤 설정
+    y[i] = random(height);		// y좌표 초기 위치 랜덤 설정
+  }
+}
+
+function draw() {
+  background(0, 10);			// 페이딩 효과 (투명도 10 부여)
+  
+  stroke(255);			// 점 색상은 흰색
+  for (let i = 0; i < num; i++) {
+    point(x[i], y[i]);
+    x[i] += random(1.0);		// x좌표 랜덤값(0.0∼1.0) 누적, 방향성: 오른쪽
+    y[i] += random(1.0);		// y좌표 랜덤값(0.0∼1.0) 누적, 방향성: 아랫쪽
+  }
+}

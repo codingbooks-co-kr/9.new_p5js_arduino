@@ -1,0 +1,21 @@
+// 무채색 표현: color(0∼255)
+// RGB 컬러 표현: color(R,G,B, alpha),
+// 여기서 alpha(=0∼255): 색상 투명도
+
+function setup() {
+  createCanvas(400, 200);
+  let c = color(0, 0, 0);
+  let c1 = color(255, 0, 0);
+  let c2 = color(0, 255, 0);
+  let c3 = color(0, 0, 255);
+
+  background(c);
+  fill(c1);
+  stroke(c1);
+  strokeWeight(5);
+  ellipse(100, 100, 80, 80);
+  fill(c2);
+  ellipse(200, 100, 80, 80);
+  fill(c3);
+  ellipse(300, 100, 80, 80);
+}

@@ -1,0 +1,38 @@
+// 마우스 및 키보드의 이벤트 함수
+
+let s = "";
+
+function setup() {
+  createCanvas(600, 200);
+}
+
+function draw() {
+  background(0);
+  fill(255);
+  textSize(30);
+  text(s, 10, height/2);
+}
+
+function mousePressed() {
+  s = 'mousePressed x: ' + mouseX + ' y: ' + mouseY;
+}
+
+function mouseReleased() {
+  s = 'mouseReleased x: ' + mouseX + ' y: ' + mouseY;
+}
+
+function mouseMoved() {
+  s = 'mouseMoved x: ' + mouseX + ' y: ' + mouseY;
+}
+
+function mouseDragged() {
+  s = 'mouseDragged x: ' + mouseX + ' y: ' + mouseY;
+}
+
+function keyPressed() {
+  s = 'keyPressed key: ' + key + ' keyCode: ' + keyCode;
+}
+
+function keyReleased() {
+  s = 'keyReleased key: ' + key + ' keyCode: ' + keyCode;
+}

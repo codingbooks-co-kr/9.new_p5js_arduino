@@ -1,0 +1,14 @@
+// 원의 크기가 점점 증가1
+
+let r;			// 변수 선언
+
+function setup() {
+  createCanvas(300, 300);
+  r = 0;		// 변수 초기화
+}
+
+function draw() {
+  background(0);
+  ellipse(150, 150, r, r);
+  r = r + 1;
+}

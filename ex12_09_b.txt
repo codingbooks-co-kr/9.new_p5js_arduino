@@ -1,0 +1,51 @@
+// p5.js(인터럽트 방식): 수신값 2개를 원 이동에 적용, 마우스의 상하좌우 움직임값 2개를 송신
+
+let port = new p5.WebSerial();		// 시리얼 통신을 위한 객체 생성
+let value1 = 0, value2 = 0, r = 0, g = 0;
+
+function setup() {
+  createCanvas(500, 500);
+  port.getPorts();			// 포트 사용 가능 여부 확인
+  port.on('noport', makePortButton);	// 기존 선택한 포트가 없으면 makePortButton() 호출
+  port.on('portavailable', openPort);	// 사용 가능한 포트가 있으면 openPort() 자동 호출
+  port.on('data', serialEvent);		// 수신값이 있으면 serialEvent() 자동 호출
+}
+
+function draw() {
+  background(0, 10);					// 페이딩 효과 (투명도 10 부여)
+  let x = int(map(mouseX, 0, width, 0, 255));		// RGB LED의 Red값
+  r = constrain(x, 0, 255);			// 송신값을 1바이트 범위로 제한
+  let y = int(map(mouseY, 0, height, 0, 255));	// RGB LED의 Green값
+  g = constrain(y, 0, 255);			// 송신값을 1바이트 범위로 제한
+
+  noStroke();				// 외곽선 제거 (부드러운 페이딩 효과)
+  fill(x, y, 255);			// 원의 색상에 적용
+  ellipse(value1, value2, 50, 50);	// 수신값 2개로 원을 상하 및 좌우 이동
+}
+
+function serialEvent() {			// 콜백함수: 시리얼버퍼에 수신값이 있으면 자동 호출
+  let str = port.readLine();		// 수신: 개행까지의 수신 문자열 읽기
+  if (!str) return;			// 입력 문자열(→str)이 없으면 함수 실행 종료
+  let s = trim(str);			// 입력 문자열(→str)의 시작과 끝에 붙은 공백 삭제
+  let value = split(s, ",");		// 콤마로 구분된 문자열을 value 배열에 저장
+  port.write(r + ' ' + g + '\n');		// 송신: 복수 값을 하나의 문자열로 송신
+
+  if (value.length != 2) return;		// 통신시작신호('A')인 경우 함수 벗어나기
+  value1 = map(float(value[0]), 0, 1023, 0, width);	// 실수형으로 변환 후 값 범위 변경
+  value2 = map(float(value[1]), 0, 1023, 0, height);	// 실수형으로 변환 후 값 범위 변경
+}
+
+function makePortButton() {			// 포트 첫 연결 시 포트 선택 버튼 생성
+  let portButton = createButton('포트 선택');	// 버튼 생성
+  portButton.mousePressed(choosePort);	// 버튼 누르면 choosePort() 자동 호출
+  function choosePort() {			// 콜백함수
+    port.requestPort();				// 시리얼 포트 선택창 오픈
+  }
+}
+
+function openPort() {				// 콜백함수
+  port.open().then(initiateSerial);		// 포트를 오픈 후 initiateSerial() 자동 호출
+  function initiateSerial() {			// 콜백함수
+    console.log('포트 오픈');
+  }
+}

@@ -1,0 +1,18 @@
+function setup() {
+  console.log(1 == 1);		// 값이 같으므로 true
+  console.log(1 === 1);		// 값과 데이터형이 같으므로 true
+
+  console.log(1 == "1");	// 문자열은 숫자로 형변환된 후 비교
+  console.log(1 == true);	// true는 숫자 1로 형변환된 후 비교
+  console.log(0 == "0");	// 숫자 문자열은 숫자로 형변환된 후 비교
+  console.log(0 == false);	// false는 숫자 0으로 형변환된 후 비교
+  console.log("" == false);	// 빈문자열("")은 false로 형변환된 후 비교
+  console.log([] == false);	// 빈배열([])은 false로 형변환된 후 비교
+
+  console.log(1 === "1");	// 값과 데이터형이 다르므로 false
+  console.log(1 === true);	// 이하 동일
+  console.log(0 === "0");
+  console.log(0 === false);
+  console.log("" === false);
+  console.log([] === false);
+}

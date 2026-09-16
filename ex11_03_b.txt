@@ -1,0 +1,40 @@
+// p5.js: 조도센서값 수신하여 문자 이동
+
+let port = new p5.WebSerial();
+let value = 0;
+
+function setup( ) {
+  createCanvas(300, 500);
+  port.getPorts();
+  port.on('noport', makePortButton);
+  port.on('portavailable', openPort);
+  port.on('data', serialEvent);
+}
+
+function draw() {
+  background(0);
+  fill(255, 255, 0);
+  textAlign(CENTER, CENTER);
+  textSize(50);
+  text(nf(value, 3), width/2, value);
+}
+
+function serialEvent() {
+  value = port.read();
+  value = int(map(value, 0, 255, 0, height));
+}
+
+function makePortButton() {
+  let portButton = createButton('포트선택');
+  portButton.mousePressed(choosePort);
+  function choosePort() {
+    port.requestPort();
+  }
+}
+
+function openPort() {
+  port.open().then(initiateSerial);
+  function initiateSerial() {
+    console.log('포트 오픈');
+  }
+}

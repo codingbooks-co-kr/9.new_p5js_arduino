@@ -1,0 +1,19 @@
+// 원의 중심에서 마우스와의 거리에 따라 원의 색상 변경
+
+let r = 100.0;
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  background(0);
+  let d = distance();			// 함수 호출부
+  console.log(d);
+}
+
+function distance() {			// 함수 본체
+  let dd = dist(width/2, height/2, mouseX, mouseY);
+  fill(dd, dd, 255);
+  ellipse(width/2, height/2, r*2, r*2);
+  return dd;				// 함수의 반환값
+}

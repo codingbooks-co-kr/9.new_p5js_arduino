@@ -1,0 +1,13 @@
+// 원을 좌에서 우로 이동2
+
+let x = 0;
+
+function setup() {
+  createCanvas(300, 300);
+}
+
+function draw() {
+  background(0);
+  ellipse(x, 150, 30, 30);
+  x++;
+}
